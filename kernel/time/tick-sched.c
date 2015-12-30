@@ -691,6 +691,9 @@ static ktime_t tick_nohz_stop_sched_tick(struct tick_sched *ts,
 out:
 	/* Update the estimated sleep length */
 	ts->sleep_length = ktime_sub(dev->next_event, now);
+
+	trace_tick_next(ts->sleep_length.tv64, "At return site\n");
+
 	return tick;
 }
 

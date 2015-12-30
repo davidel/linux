@@ -346,6 +346,24 @@ TRACE_EVENT(tick_stop,
 
 	TP_printk("success=%s msg=%s",  __entry->success ? "yes" : "no", __get_str(msg))
 );
+TRACE_EVENT(tick_next,
+
+	TP_PROTO(u64 delay, const char *smsg),
+
+	TP_ARGS(delay, smsg),
+
+	TP_STRUCT__entry(
+		__field(u64, delay)
+		__string(msg, smsg)
+	),
+
+	TP_fast_assign(
+		__entry->delay = delay;
+		__assign_str(msg, smsg);
+	),
+
+	TP_printk("delay=%lu msg=%s",  __entry->delay, __get_str(msg))
+);
 #endif
 
 #endif /*  _TRACE_TIMER_H */
