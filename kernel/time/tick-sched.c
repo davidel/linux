@@ -599,6 +599,9 @@ static ktime_t tick_nohz_stop_sched_tick(struct tick_sched *ts,
 		ts->next_timer = next_tmr;
 		/* Take the next rcu event into account */
 		next_tick = next_rcu < next_tmr ? next_rcu : next_tmr;
+
+		if (next_tick != KTIME_MAX)
+			trace_tick_next(next_tick - basemono, "It's timer!\n");
 	}
 
 	/*
@@ -689,6 +692,10 @@ static ktime_t tick_nohz_stop_sched_tick(struct tick_sched *ts,
 	else
 		tick_program_event(tick, 1);
 out:
+	if (expires != KTIME_MAX)
+		trace_tick_next(expires - basemono,
+				"At return site (expires - basemono)\n");
+
 	/* Update the estimated sleep length */
 	ts->sleep_length = ktime_sub(dev->next_event, now);
 
