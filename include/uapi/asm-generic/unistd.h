@@ -717,9 +717,15 @@ __SYSCALL(__NR_membarrier, sys_membarrier)
 __SYSCALL(__NR_mlock2, sys_mlock2)
 #define __NR_copy_file_range 285
 __SYSCALL(__NR_copy_file_range, sys_copy_file_range)
+#define __NR_mwait 286
+#ifdef CONFIG_X86_64
+__SYSCALL(__NR_mwait, sys_mwait)
+#else
+__SYSCALL(__NR_mwait, sys_ni_syscall)
+#endif /* CONFIG_X86_64 */
 
 #undef __NR_syscalls
-#define __NR_syscalls 286
+#define __NR_syscalls 287
 
 /*
  * All syscalls below here should go away really,

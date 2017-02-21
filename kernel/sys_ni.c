@@ -250,3 +250,6 @@ cond_syscall(sys_execveat);
 
 /* membarrier */
 cond_syscall(sys_membarrier);
+
+/* x86 monitor/mwait */
+cond_syscall(sys_mwait);
